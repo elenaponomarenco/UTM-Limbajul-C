@@ -1,0 +1,341 @@
+Probleme cu functii
+ex 1:
+#include <stdio.h>
+#include <stdlib.h>
+
+int NrMare (int a, int b, int c, int d) {
+    int A[4], max, i;
+    A[1] = a;
+    A[2] = b;
+    A[3] = c;
+    A[4] = d;
+    max = INT_MIN;
+    for(i=0;i<5;i++)
+    {
+        if(A[i] > max) {max= A[i];}
+    }
+    return max;
+
+}
+
+int NrMic (int a, int b, int c, int d) {
+    int A[4], min, i;
+    A[1] = a;
+    A[2] = b;
+    A[3] = c;
+    A[4] = d;
+    min = INT_MAX;
+    for(i=0;i<5;i++)
+    {
+        if(A[i] < min) {min= A[i];}
+    }
+    return min;
+
+}
+int CMMDC (int a, int b, int c, int d) {
+    while (a != b)
+    {
+        if (a > b)
+            a = a - b;
+        else
+            b = b - a;
+    }
+    while (c != d)
+    {
+        if (c > d)
+            c = c - d;
+        else
+            d = d - c;
+    }
+    while (a != c)
+    {
+        if (c > a)
+            a = a - c;
+        else
+            c = c - a;
+    }
+    return a;
+}
+int CMMMC (int a, int b, int c, int d, int cmmdc_global){
+    int cmmmc_local = (a * b * c * d) / cmmdc_global;
+    return cmmmc_local;
+
+}
+
+int main() {
+  int a, b, c, d;
+  printf("Introdu 4 numere:\n a = ");
+  scanf("%d", &a);
+  printf(" b = ");
+  scanf("%d", &b);
+  printf(" c = ");
+  scanf("%d", &c);
+  printf(" d = ");
+  scanf("%d", &d);
+
+   int max = NrMare (a, b, c, d);
+    int min = NrMic (a, b, c, d);
+  printf("\na) Numarul cel mai mare este %d", max);
+  printf("\nb) Numarul cel mai mic este %d", min);
+  int cmmdc = CMMDC(a, b, c, d);
+  printf("\nc) Cel mai mare divizor comun este %d", cmmdc);
+  int cmmdc_global = CMMDC(a, b, c, d);
+  int cmmmc = CMMMC (a, b, c, d, cmmdc_global);
+  printf("\nd) Cel mai mic multiplu comun este %d ", cmmmc);
+  return 0;
+}
+
+ex 2:
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+int SumNr (int n) {
+    int sum = 0 ,  rest;
+    while  (  n  >  0  )
+    {
+        rest  =  n  %  10;
+        sum  +=  rest;
+        n  /=  10;
+    }  return sum;
+}
+
+int cifra_mare(int n){
+    int rest, a[11], i=0, max = INT_MIN, count=0;
+    while ( n > 0 )
+    {
+        a[i] = n % 10;
+        n /= 10; i++; count++;
+    }
+
+    for (i=0;i<count;i++)
+    {
+        if(a[i] > max) {max = a[i];}
+    }
+    return max;
+}
+
+int NrDiv (int n){
+    int count = 0, i;
+    for(i = 1; i <= n; i++)
+    {
+      if(n % i == 0) {count++;}
+    } return count;
+}
+
+int SumNrDiv (int n){
+    int sum = 0, i;
+    for(i = 1; i < n; i++)
+    {
+      if(n % i == 0) {sum += i;;}
+    } return sum;
+}
+
+
+int NrPerfect (int n){
+    int sum = 0, i, a;
+    for(i = 1; i < n; i++)
+    {
+      if(n % i == 0) {sum += i;;}
+    }
+    if(sum == n) {a = 1;} else {a = 0;}
+    return a;
+}
+
+int NrPrim (int n){
+    int i, count = 0 ;
+    for(i = 1; i <= n; i++)
+    {
+        if (n % i == 0) {count++;}
+    } 
+return count;
+}
+
+
+int main() {
+  int a, b, c, d;
+  printf("Introdu 4 numere:\n a = ");
+  scanf("%d", &a);
+  printf(" b = ");
+  scanf("%d", &b);
+  printf(" c = ");
+  scanf("%d", &c);
+  printf(" d = ");
+  scanf("%d", &d);
+  int max_a = cifra_mare(a);
+  int max_b = cifra_mare(b);
+  int max_c = cifra_mare(c);
+  int max_d = cifra_mare(d);
+  printf("\n a) Suma cifrelor fiecarui numar:\n\ta = %d\n\tb = %d\n\tc = %d\n\td = %d", SumNr(a), SumNr(b), SumNr(c), SumNr(d) );
+  printf("\n b) Cifra cea mai mare din componenta fiecarui nr:\n\ta = %d\n\tb = %d\n\tc = %d\n\td = %d", max_a, max_b, max_c,max_d);
+  printf("\n c) Nr. divizorilor fiecarui numar dat:\n\ta = %d\n\tb = %d\n\tc = %d\n\td = %d", NrDiv(a), NrDiv(b), NrDiv(c), NrDiv(d));
+  printf("\n d) Suma nr. divizorilor fiecarui numar dat:\n\ta = %d\n\tb = %d\n\tc = %d\n\td = %d", SumNrDiv(a), SumNrDiv(b), SumNrDiv(c), SumNrDiv(d));
+  int x = NrPerfect(a);
+  int y = NrPerfect(b);
+  int z = NrPerfect(c);
+  int q = NrPerfect(d);
+  printf("\n e) Numere perfecte:");
+  if(x == 1) {printf("\n\t%d ",a);}
+  if(y == 1) {printf("\n\t%d ",b);}
+  if(z == 1) {printf("\n\t%d ",c);}
+  if(q == 1) {printf("\n\t%d \n",d);}
+  int aa = NrPrim(a);
+  int bb = NrPrim(b);
+  int cc = NrPrim(c);
+  int dd = NrPrim(d);
+  printf("\n f) Numere prime:");
+  if(aa == 2) {printf("\n\t%d ",a);}
+  if(bb == 2) {printf("\n\t%d ",b);}
+  if(cc == 2) {printf("\n\t%d ",c);}
+  if(dd == 2) {printf("\n\t%d ",d);}
+
+  return 0;
+}
+
+ex 3:
+#include <stdio.h>
+#include <stdlib.h>
+
+int MareOglind (int a, int b, int c, int d)
+{
+    int max = INT_MIN;
+    int res_a = 0, res_b = 0, res_c = 0, res_d = 0;
+
+    while ( a > 0  ){
+        res_a = res_a * 10 + (a % 10);
+        a /= 10;
+    }
+    while ( b > 0  ){
+        res_b = res_b * 10 + (b % 10);
+        b /= 10;
+    }
+    while ( c > 0  ){
+        res_c = res_c * 10 + (c % 10);
+        c /= 10;
+    }
+    while ( d > 0  ){
+        res_d = res_d * 10 + (d % 10);
+        d /= 10;
+    }
+
+    if(res_a > max) {max = res_a;}
+    if(res_b > max) {max = res_b;}
+    if(res_c > max) {max = res_c;}
+    if(res_d > max) {max = res_d;}
+
+    return max;
+
+}
+
+int MicOglind (int a, int b, int c, int d)
+{
+int    min = INT_MAX;
+ int res_a = 0, res_b = 0, res_c = 0, res_d = 0;
+
+    while ( a > 0  ){
+        res_a = res_a * 10 + (a % 10);
+        a /= 10;
+    }
+    while ( b > 0  ){
+        res_b = res_b * 10 + (b % 10);
+        b /= 10;
+    }
+    while ( c > 0  ){
+        res_c = res_c * 10 + (c % 10);
+        c /= 10;
+    }
+    while ( d > 0  ){
+        res_d = res_d * 10 + (d % 10);
+        d /= 10;
+    }
+
+    if(res_a < min) {min = res_a;}
+    if(res_b < min) {min = res_b;}
+    if(res_c < min) {min = res_c;}
+    if(res_d < min) {min = res_d;}
+
+    return min;
+
+}
+
+int MareDinNr (int n)
+{
+    int A[11], i = 0, swap, count = 0;
+    while (n > 0)
+    {
+        A[i] = n % 10;
+        n/=10; i++; count++;
+    }
+    for (i = 0; i < count; i++)
+    {
+        for (int j = i+1; j<count; j++)
+        {
+            if (A[i] < A[j])
+            {
+                swap = A[i];
+                A[i] = A[j];
+                A[j] = swap;
+            }
+        }
+     }
+     for (i = 0; i < count; ++i)
+        {
+            printf("%d", A[i]);
+        }
+}
+
+int MicDinNr (int n)
+{
+    int A[11], i = 0, swap, count = 0;
+    while (n > 0)
+    {
+        A[i] = n % 10;
+        n/=10; i++; count++;
+    }
+    for (i = 0; i < count; i++)
+    {
+        for (int j = i+1; j<count; j++)
+        {
+            if (A[i] > A[j])
+            {
+                swap = A[i];
+                A[i] = A[j];
+                A[j] = swap;
+            }
+        }
+    }
+    for (i = 0; i < count; ++i)
+        {
+            if(A[i] == 0) continue;
+          else  printf("%d", A[i]);
+        }
+}
+
+int main() {
+
+  int a, b, c, d;
+  printf("Introdu 4 numere:\n a = ");
+  scanf("%d", &a);
+  printf(" b = ");
+  scanf("%d", &b);
+  printf(" c = ");
+  scanf("%d", &c);
+  printf(" d = ");
+  scanf("%d", &d);
+  int max = MareOglind (a, b, c, d);
+    printf("\n a) Nr cel m.mare dintre oglinditul numerelor date: %d ",max);
+  int min = MicOglind (a, b, c, d);
+    printf("\n b) Nr cel m.min dintre oglinditul numerelor date: %d ",min);
+  printf("\n c) Nr cel m.mare format dintre cifrele fiecarui nr respectiv:");
+  printf("\n\ta = "); MareDinNr(a);
+  printf("\n\tb = "); MareDinNr(b),
+  printf("\n\tc = "); MareDinNr(c);
+  printf("\n\ta = "); MareDinNr(d);
+  printf("\n d) Nr cel m.mic format dintre cifrele fiecarui nr respectiv:");
+  printf("\n\ta = "); MicDinNr(a);
+  printf("\n\tb = "); MicDinNr(b),
+  printf("\n\tc = "); MicDinNr(c);
+  printf("\n\ta = "); MicDinNr(d);
+
+}
+
